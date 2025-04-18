@@ -1,0 +1,87 @@
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import { CheckCircle, Hourglass } from "lucide-react";
+
+export default function ArkadaslikBasvurusu() {
+  const [cevap, setCevap] = useState(null);
+  const [formData, setFormData] = useState({ ad: "", neden: "" });
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 to-yellow-100 flex items-center justify-center p-6 relative">
+      {/* Arka Plan Müziği */}
+      <audio autoPlay loop>
+        <source src="/arkadaslik-muzik.mp3" type="audio/mpeg" />
+        Tarayıcınız audio elementini desteklemiyor.
+      </audio>
+
+      <Card className="w-full max-w-xl shadow-2xl rounded-2xl">
+        <CardContent className="p-6 space-y-4">
+          <h1 className="text-3xl font-bold text-center text-pink-700">
+            👋 Ali Eren'den Arkadaşlık Başvurusu
+          </h1>
+          <p className="text-center text-gray-700">
+            Bu CV, sıradan bir arkadaşlık başvurusu değildir. Bu bir sadakat,
+            kahkaha ve 7/24 destek vaat eden özel bir pakettir.
+          </p>
+
+          <ul className="list-disc list-inside text-gray-800 space-y-1">
+            <li>🎧 Derdini sessizce dinleyebilirim (ama çayla daha iyi olur)</li>
+            <li>😂 Saçma esprilere kahkaha garantisi</li>
+            <li>🕵️ Gözünden ruh halini anlama özelliği (beta sürümde)</li>
+            <li>📦 "Gerçek arkadaşlık" full paket (deneme süresi yok, direkt kalıcı)</li>
+            <li>📞 7/24 müsait ama aramadan önce mesaj at 😅</li>
+          </ul>
+
+          <div className="mt-6 space-y-2">
+            <h2 className="text-xl font-semibold text-pink-600">Mini Başvuru Formu 📝</h2>
+            <Label htmlFor="ad">Adın</Label>
+            <Input
+              id="ad"
+              placeholder="Adını yaz bakalım 😌"
+              value={formData.ad}
+              onChange={(e) => setFormData({ ...formData, ad: e.target.value })}
+            />
+            <Label htmlFor="neden">Neden arkadaş olmak istersin?</Label>
+            <Input
+              id="neden"
+              placeholder="Çünkü sen komiksin, olabilir mesela :)"
+              value={formData.neden}
+              onChange={(e) => setFormData({ ...formData, neden: e.target.value })}
+            />
+          </div>
+
+          <div className="text-center mt-6">
+            <p className="text-gray-600">Bu başvuruya cevabın nedir?</p>
+            <div className="flex justify-center gap-4 mt-2">
+              <Button
+                className="bg-green-500 hover:bg-green-600 text-white"
+                onClick={() => setCevap("kabul")}
+              >
+                ✅ Kabul Et
+              </Button>
+              <Button
+                className="bg-yellow-400 hover:bg-yellow-500 text-white"
+                onClick={() => setCevap("dusun")}
+              >
+                🤔 Düşüneyim
+              </Button>
+            </div>
+            {cevap === "kabul" && (
+              <p className="mt-4 text-green-600 flex items-center justify-center gap-2">
+                <CheckCircle className="w-5 h-5" /> Harika! Yeni arkadaşlık dönemi başlasın 😎
+              </p>
+            )}
+            {cevap === "dusun" && (
+              <p className="mt-4 text-yellow-600 flex items-center justify-center gap-2">
+                <Hourglass className="w-5 h-5 animate-pulse" /> Tamam, düşün ama çok bekletme 🙃
+              </p>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
